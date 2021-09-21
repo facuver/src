@@ -6,7 +6,7 @@ import gc
 from .lib import urequests as requests
 from .web import app
 import wifi
-from .cfg import automation, log, configs, format_time,update_automation
+from .cfg import automation, log, configs, format_time, update_automation
 
 
 def soil_update():
@@ -52,7 +52,7 @@ async def check_connection():
         print("checking Connection")
         if not wifi.interface.isconnected():
             log("Reconnecting")
-            wifi.do_connect(wifi.configs["STA_essid"], wifi.configs["STA_password"])
+            wifi.do_connect(configs["STA_essid"], configs["STA_password"])
         await asyncio.sleep(300)
 
 
@@ -99,7 +99,7 @@ async def update_data():
 log("Starting Server")
 main_task = asyncio.create_task(every_minute())
 second_task = asyncio.create_task(every_second())
-# update_task = asyncio.create_task(update_data())
-
-check_connection = asyncio.create_task(check_connection())
+if wifi.interface.active():
+    check_connection = asyncio.create_task(check_connection())
+    # update_task = asyncio.create_task(update_data())
 app.run(host="0.0.0.0", port=80, debug=True)

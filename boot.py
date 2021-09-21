@@ -12,8 +12,8 @@ except Exception as e:
     print("Error: ", e)
 
 
-# if not wifi.do_connect(essid, password):
-#     wifi.do_create()
-
-
-ntptime.settime()
+if wifi.do_connect(essid, password):
+    ntptime.settime()
+else:
+    print("cant Connect")
+    wifi.do_create()

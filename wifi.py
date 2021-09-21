@@ -4,7 +4,7 @@ import network
 interface = network.WLAN(network.STA_IF)
 ap = network.WLAN(network.AP_IF)  # create access-point interface
 ap.config(
-    essid="INDOOR_ESP", password="indoor_esp"
+    essid="INDOOR_ESP", authmode=4, password="indoor_esp"
 )  # set the ESSID of the access point
 
 
