@@ -1,0 +1,9 @@
+{
+  "AP_password": "INDOOR_ESP",
+  "STA_essid": "Julio",
+  "AP_essid": "indoor_esp",
+  "STA_password": "Misiones145",
+  "Update_interval": 30,
+  "API_KEY": "KDTBE4QO2KEIYXZS",
+  "Channel_ID": 1487617
+}
