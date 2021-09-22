@@ -1,7 +1,7 @@
 class IO:
     def __init__(self, os=None, logger=None):
         self.os = os
-        self.log = logger.append("io")
+        self.log = logger(append="io")
 
     def rmtree(self, path):
         if not self.exists(path):
@@ -132,7 +132,7 @@ class GitHub:
             "https://github.com", "https://api.github.com/repos"
         )
         self.io = io
-        self.log = logger.append("github")
+        self.log = logger(append="github")
         self.branch = branch
         self.logger = logger
 

@@ -1,6 +1,7 @@
 import update, env, lib.requests, lib.logger, lib.requests, lib.timew, time, os, machine
 from lib import base64
 
+t = lib.timew.Time(time=time)
 
 # Configure Logger
 # logger = lib.logger.config(
@@ -15,10 +16,22 @@ from lib import base64
 # loggerOta = logger(append="OTAUpdater")
 
 
-loggerOta = lib.logger.LoggerSimple(time, "OTA")
 loggerBoot = lib.logger.LoggerSimple(time, "Boot")
 
-loggerBoot("Booting")
+loggerBoot("Booting", 4)
+
+
+logger = lib.logger.config(
+    enabled=env.settings["debug"],
+    include=env.settings["logInclude"],
+    exclude=env.settings["logExclude"],
+    time=t,
+)
+log = logger(append="boot")
+log("The current time is %s" % t.human())
+
+loggerOta = logger(append="OTAUpdater")
+
 
 io = update.IO(os=os, logger=loggerOta)
 github = update.GitHub(
@@ -34,15 +47,17 @@ github = update.GitHub(
 updater = update.OTAUpdater(io=io, github=github, logger=loggerOta, machine=machine)
 
 try:
-    pass
-    # updater.update()
+    updater.update()
 except Exception as e:
-    log("Failed to OTA update:", e)
-
-
-import src.Indoor
+    loggerBoot("Failed to OTA update:", e)
 
 del loggerBoot
 del loggerOta
+del io
+del github
+del updater
+
+import src.Indoor
+
 
 src.Indoor.start()

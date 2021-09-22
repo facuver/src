@@ -3,7 +3,7 @@ from . import periferics
 import utime as time
 
 led = periferics.Led(Pin(2, Pin.OUT))
-ledActuactor = periferics.LedActuator(led, time, time_on=10, time_off=4)
+ledActuactor = periferics.LedActuator(led, time, time_on=1, time_off=1)
 
 pump = periferics.Pump(Pin(4, Pin.OUT))
 soilProbe = periferics.SoilProbe(Pin(33))
