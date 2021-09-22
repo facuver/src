@@ -1,5 +1,5 @@
 import ujson
-import ntptime
+import logger
 import utime
 from uos import stat
 
@@ -89,6 +89,8 @@ def log(msg):
 
 configs = read_configs()
 automation = read_automation()
+
+log = logger.LoggerSimple(utime, "Runtime")
 
 # default ip from AP
 ip = "192.168.4.1"

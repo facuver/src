@@ -1,19 +1,24 @@
-import ntptime, env, wifi, ujson
+import ntptime, wifi, ujson, os, io
+from machine import RTC
 
 essid = ""
 password = ""
+
+
 try:
-    with open("src/config.json", "r") as f:
+    with open("wifi.json", "r") as f:
         conf = ujson.load(f)
-        essid = conf["STA_essid"]
-        password = conf["STA_password"]
-        print(essid, password)
+        essid = conf["essid"]
+        password = conf["password"]
+
+    if wifi.do_connect(essid, password):
+        ntptime.host = "time.google.com"
+        ntptime.settime()
+
+    else:
+        print("cant Connect")
+        wifi.do_create()
+
 except Exception as e:
     print("Error: ", e)
-
-
-if wifi.do_connect(essid, password):
-    ntptime.settime()
-else:
-    print("cant Connect")
     wifi.do_create()

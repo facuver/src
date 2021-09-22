@@ -1,7 +1,5 @@
 from .lib.microdot_asyncio import Microdot, send_file
 from wifi import interface, get_scans
-from .cfg import configs, update_configs, update_automation, automation
-from src.lib.periferics import get_status, led
 
 app = Microdot()
 
